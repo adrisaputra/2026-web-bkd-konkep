@@ -253,6 +253,37 @@ class TransparencyControllerTest extends TestCase
             ->assertSee('Komitmen Pelayanan Bersih');
     }
 
+    public function test_page_routes_load_transparency_records_for_their_category_through_web_controller(): void
+    {
+        $user = User::factory()->create();
+        $categories = [
+            ['path' => '/page-lakip', 'category' => 'lakip', 'title' => 'Data LAKIP', 'view' => 'pages.transparansi-lakip'],
+            ['path' => '/page-renstra', 'category' => 'renstra', 'title' => 'Data Renstra', 'view' => 'pages.transparansi-renstra'],
+            ['path' => '/page-ziwbk', 'category' => 'zona_integritas', 'title' => 'Data Zona Integritas', 'view' => 'pages.transparansi-ziwbk'],
+        ];
+
+        foreach ($categories as $category) {
+            Transparency::create([
+                'category' => $category['category'],
+                'title' => $category['title'],
+                'slug' => str($category['title'])->slug(),
+                'text' => 'Isi '.$category['title'],
+                'file' => null,
+                'count_view' => 0,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        foreach ($categories as $category) {
+            $this->get($category['path'])
+                ->assertOk()
+                ->assertViewIs($category['view'])
+                ->assertSee($category['title'])
+                ->assertViewHas('transparencies', fn ($transparencies): bool => $transparencies->count() === 1
+                    && $transparencies->first()->category === $category['category']);
+        }
+    }
+
     public function test_download_increments_the_count_and_rejects_other_categories(): void
     {
         Storage::fake('public');

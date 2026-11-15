@@ -6,14 +6,12 @@ use App\Models\LegalProduct;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use RuntimeException;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Yajra\DataTables\Facades\DataTables;
 
 class LegalProductController extends Controller
@@ -231,18 +229,5 @@ class LegalProductController extends Controller
             ->get();
 
         return view('pages.info-produkhukum', compact('legalProducts'));
-    }
-
-    public function download(LegalProduct $legalProduct): StreamedResponse
-    {
-        $path = 'upload/legal_product/'.$legalProduct->file;
-
-        abort_unless($legalProduct->file && Storage::disk('public')->exists($path), 404);
-
-        DB::table($legalProduct->getTable())
-            ->where($legalProduct->getKeyName(), $legalProduct->getKey())
-            ->update(['count_view' => DB::raw('COALESCE(count_view, 0) + 1')]);
-
-        return Storage::disk('public')->download($path, $legalProduct->title.'.pdf');
     }
 }

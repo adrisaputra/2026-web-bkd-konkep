@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ServiceControllerTest extends TestCase
@@ -52,6 +53,60 @@ class ServiceControllerTest extends TestCase
         $this->withoutMiddleware(RoleMiddleware::class)
             ->get('/service/menu-tidak-ada')
             ->assertNotFound();
+    }
+
+    public static function publicServicePages(): array
+    {
+        return [
+            'promotion' => ['/page-promotion', 'promotion'],
+            'retirement' => ['/page-retirement', 'retirement'],
+            'leave' => ['/page-leave', 'leave'],
+            'transfer' => ['/page-transfer', 'transfer'],
+            'discipline' => ['/page-discipline', 'discipline'],
+        ];
+    }
+
+    #[DataProvider('publicServicePages')]
+    public function test_public_service_page_renders_content_from_its_database_record(string $path, string $menu): void
+    {
+        $service = Service::create([
+            'title' => 'Judul '.$menu,
+            'text' => '<p>Deskripsi '.$menu.'</p>',
+            'condition' => '<ul><li>Persyaratan '.$menu.'</li></ul>',
+            'url' => '/permohonan/'.$menu,
+            'menu' => $menu,
+        ]);
+
+        $this->get($path)
+            ->assertOk()
+            ->assertViewIs('pages.service')
+            ->assertViewHas('service', fn (Service $viewService): bool => $viewService->is($service))
+            ->assertSee('Judul '.$menu)
+            ->assertSee('<p>Deskripsi '.$menu.'</p>', false)
+            ->assertSee('<li>Persyaratan '.$menu.'</li>', false)
+            ->assertSee('href="/permohonan/'.$menu.'"', false);
+    }
+
+    public function test_public_service_page_returns_not_found_when_no_record_matches_its_menu(): void
+    {
+        $this->get('/page-promotion')
+            ->assertNotFound();
+    }
+
+    public function test_public_service_page_does_not_render_an_unsafe_service_url(): void
+    {
+        Service::create([
+            'title' => 'Layanan Kepegawaian',
+            'text' => '<p>Informasi layanan</p>',
+            'condition' => null,
+            'url' => 'javascript:alert(1)',
+            'menu' => 'promotion',
+        ]);
+
+        $this->get('/page-promotion')
+            ->assertOk()
+            ->assertDontSee('href="javascript:alert(1)"', false)
+            ->assertDontSee('Ajukan Permohonan / Cek Berkas');
     }
 
     public function test_validation_rejects_a_missing_description(): void

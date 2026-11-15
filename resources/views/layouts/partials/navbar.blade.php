@@ -13,8 +13,8 @@
                     <i class="fa-solid fa-landmark fs-4"></i>
                 </span>
                 <span class="d-flex flex-column">
-                    <strong class="text-primary-emphasis lh-sm">BKD KONAWE KEPULAUAN</strong>
-                    <small class="text-secondary">Badan Kepegawaian Daerah Kabupaten Wawonii</small>
+                    <strong class="text-primary-emphasis lh-sm" style="font-size:18px">BKD KONAWE KEPULAUAN</strong>
+                    <small class="text-secondary" style="font-size:12px">Badan Kepegawaian Daerah Kabupaten Wawonii</small>
                 </span>
             </a>
 
@@ -31,29 +31,29 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('page.profil-*') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profil</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('page.profil-sejarah') }}">Sejarah Instansi</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.profil-visimisi') }}">Visi &amp; Misi</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.profil-struktur') }}">Struktur Organisasi</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.profil-tupoksi') }}">Tugas Pokok &amp; Fungsi</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-history') }}">Sejarah Instansi</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-vision-mission') }}">Visi &amp; Misi</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-structure') }}">Struktur Organisasi</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-main-tasks') }}">Tugas Pokok &amp; Fungsi</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('page.layanan-*') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Layanan</a>
+                    <a class="nav-link dropdown-toggle {{ request()->is('page-promotion', 'page-retirement', 'page-leave', 'page-transfer', 'page-discipline') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Layanan</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('page.layanan-pangkat') }}">Kenaikan Pangkat</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.layanan-pensiun') }}">Pensiun Pegawai</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.layanan-cuti') }}">Layanan Cuti ASN</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.layanan-mutasi') }}">Mutasi / Pindah Tugas</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.layanan-disiplin') }}">Disiplin &amp; Kinerja</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-promotion') }}">Kenaikan Pangkat</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-retirement') }}">Pensiun Pegawai</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-leave') }}">Layanan Cuti ASN</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-transfer') }}">Mutasi / Pindah Tugas</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-discipline') }}">Disiplin &amp; Kinerja</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('page.info-*') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Publikasi</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('page.info-pengumuman') }}">Pengumuman Resmi</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.info-produkhukum') }}">Produk Hukum &amp; Peraturan</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.info-galeri') }}">Galeri Kegiatan</a></li>
-                        <li><a class="dropdown-item" href="{{ route('page.info-faq') }}">FAQ (Tanya Jawab)</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-announcement') }}">Pengumuman Resmi</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-legal-product') }}">Produk Hukum &amp; Peraturan</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-galery') }}">Galeri Kegiatan</a></li>
+                        <li><a class="dropdown-item" href="{{ url('page-faq') }}">FAQ (Tanya Jawab)</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('page.kontak') ? 'active fw-semibold' : '' }}" href="{{ route('page.kontak') }}">Kontak</a>
+                    <a class="nav-link {{ request()->url('contact') ? 'active fw-semibold' : '' }}" href="{{ url('contact') }}">Kontak</a>
                 </li>
             </ul>
         </div>

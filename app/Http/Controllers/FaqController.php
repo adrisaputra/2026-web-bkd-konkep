@@ -123,11 +123,4 @@ class FaqController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Hapus Data Berhasil']);
     }
-
-    public function public_index(): View
-    {
-        $faqs = Faq::query()->orderBy('id')->get();
-
-        return view('pages.info-faq', compact('faqs'));
-    }
 }

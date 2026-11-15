@@ -25,25 +25,6 @@
                     <li>Standar Operasional Prosedur (SOP) yang transparan dan tepat waktu.</li>
                 </ul>
             </div>
-            <div class="d-grid gap-3">
-                @forelse ($transparencies as $transparency)
-                    <article class="card bg-light border-0">
-                        <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                            <div>
-                                <h2 class="h5 fw-bold mb-1">{{ $transparency->title }}</h2>
-                                <p class="text-secondary mb-0">{{ $transparency->text }}</p>
-                            </div>
-                            @if ($transparency->file)
-                                <a href="{{ route('transparency.download', ['category' => $category, 'transparency' => $transparency->id]) }}" class="btn btn-primary flex-shrink-0">
-                                    <i class="fa-solid fa-download me-1"></i> Unduh PDF
-                                </a>
-                            @endif
-                        </div>
-                    </article>
-                @empty
-                    <div class="alert alert-light border mb-0">Belum ada dokumen Zona Integritas yang tersedia.</div>
-                @endforelse
-            </div>
         </div>
     </div>
 </div>

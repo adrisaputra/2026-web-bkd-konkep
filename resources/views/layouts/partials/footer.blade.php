@@ -8,10 +8,10 @@
             <div>
                 <h2 class="h6 fw-bold text-white mb-3">Profil &amp; Layanan</h2>
                 <ul class="list-unstyled vstack gap-2 small mb-0">
-                    <li><a class="link-light link-opacity-75-hover" href="{{ route('page.profil-sejarah') }}">Sejarah Instansi</a></li>
-                    <li><a class="link-light link-opacity-75-hover" href="{{ route('page.profil-visimisi') }}">Visi &amp; Misi</a></li>
-                    <li><a class="link-light link-opacity-75-hover" href="{{ route('page.layanan-pangkat') }}">Kenaikan Pangkat</a></li>
-                    <li><a class="link-light link-opacity-75-hover" href="{{ route('page.layanan-pensiun') }}">Pensiun Pegawai</a></li>
+                    <li><a class="link-light link-opacity-75-hover" href="{{ url('page-history') }}">Sejarah Instansi</a></li>
+                    <li><a class="link-light link-opacity-75-hover" href="{{ url('page-vision-mission') }}">Visi &amp; Misi</a></li>
+                    <li><a class="link-light link-opacity-75-hover" href="{{ url('page-promotion') }}">Kenaikan Pangkat</a></li>
+                    <li><a class="link-light link-opacity-75-hover" href="{{ url('page-retirement') }}">Pensiun Pegawai</a></li>
                 </ul>
             </div>
             <div>

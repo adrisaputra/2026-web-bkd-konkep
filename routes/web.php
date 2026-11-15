@@ -15,6 +15,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\TransparencyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -34,32 +35,28 @@ Route::get('/buat_storage', function () {
     dd('Storage Berhasil Di Buat');
 });
 
-Route::view('/', 'pages.beranda')->name('home');
-
-foreach ([
-    'profil-sejarah',
-    'profil-visimisi',
-    'profil-struktur',
-    'profil-tupoksi',
-    'layanan-pangkat',
-    'layanan-pensiun',
-    'layanan-cuti',
-    'layanan-mutasi',
-    'layanan-disiplin',
-    'info-pengumuman',
-    'info-galeri',
-    'kontak',
-] as $page) {
-    Route::view('/'.$page, 'pages.'.$page)->name('page.'.$page);
-}
-
-Route::get('/transparansi-lakip', [TransparencyController::class, 'publicIndex'])->defaults('category', 'lakip')->name('page.transparansi-lakip');
-Route::get('/transparansi-renstra', [TransparencyController::class, 'publicIndex'])->defaults('category', 'renstra')->name('page.transparansi-renstra');
-Route::get('/transparansi-ziwbk', [TransparencyController::class, 'publicIndex'])->defaults('category', 'zona_integritas')->name('page.transparansi-ziwbk');
-Route::get('/info-faq', [FaqController::class, 'public_index'])->name('page.info-faq');
-Route::get('/info-produkhukum', [LegalProductController::class, 'public_index'])->name('page.info-produkhukum');
-Route::get('/legal_product/{legalProduct}/download', [LegalProductController::class, 'download'])->name('legal_product.download');
+Route::get('/', [WebController::class, 'index'])->name('home');
+Route::get('/page-history', [WebController::class, 'profile']);
+Route::get('/page-vision-mission', [WebController::class, 'profile']);
+Route::get('/page-structure', [WebController::class, 'profile']);
+Route::get('/page-main-tasks', [WebController::class, 'profile']);
+Route::get('/page-promotion', [WebController::class, 'service']);
+Route::get('/page-retirement', [WebController::class, 'service']);
+Route::get('/page-leave', [WebController::class, 'service']);
+Route::get('/page-transfer', [WebController::class, 'service']);
+Route::get('/page-discipline', [WebController::class, 'service']);
+Route::get('/page-announcement', [WebController::class, 'announcement']);
+Route::get('/page-legal-product', [WebController::class, 'legal_product']);
+Route::get('/legal_product/{legalProduct}/download', [WebController::class, 'download_legal_product'])->name('legal_product.download');
+Route::get('/page-faq', [WebController::class, 'faq']);
+Route::get('/page-lakip', [WebController::class, 'accountability'])->defaults('category', 'lakip')->name('page.transparansi-lakip');
+Route::get('/page-renstra', [WebController::class, 'accountability'])->defaults('category', 'renstra')->name('page.transparansi-renstra');
+Route::get('/page-ziwbk', [WebController::class, 'accountability'])->defaults('category', 'zona_integritas')->name('page.transparansi-ziwbk');
+Route::get('/transparansi-lakip', [WebController::class, 'accountability'])->defaults('category', 'lakip');
+Route::get('/transparansi-renstra', [WebController::class, 'accountability'])->defaults('category', 'renstra');
+Route::get('/transparansi-ziwbk', [WebController::class, 'accountability'])->defaults('category', 'zona_integritas');
 Route::get('/transparansi/{category}/{transparency}/download', [TransparencyController::class, 'download'])->name('transparency.download');
+Route::view('/kontak', 'pages.contact')->name('page.kontak');
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'authenticate']);
