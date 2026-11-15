@@ -288,7 +288,8 @@ $setting = \App\Helpers\Helpers::setting();
 									</div>
 								</div>
 							</div>
-<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('service'))) here show @endif menu-accordion">
+
+							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('service'))) here show @endif menu-accordion">
 								<span class="menu-link">
 									<span class="menu-icon" style="margin-right: 15px">
 										<img src="{{ asset('storage/menu/icons8-loudspeaker-100.png') }}" width="30" height="30">
@@ -336,7 +337,7 @@ $setting = \App\Helpers\Helpers::setting();
 								</div>
 							</div>
 
-							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('news','announcement','information'))) here show @endif menu-accordion">
+							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('news','announcement','information','legal_product','faq'))) here show @endif menu-accordion">
 								<span class="menu-link">
 									<span class="menu-icon" style="margin-right: 15px">
 										<img src="{{ asset('storage/menu/icons8-loudspeaker-100.png') }}" width="30" height="30">
@@ -358,12 +359,54 @@ $setting = \App\Helpers\Helpers::setting();
 											</span>
 											<span class="menu-title">Pengumuman</span>
 										</a>
-										<a class="menu-link @if(Request::segment(1)=='information') active @endif" href="{{ url('information') }}">
+										<a class="menu-link @if(Request::segment(1)=='legal_product') active @endif" href="{{ url('legal_product') }}">
 											<span class="menu-bullet">
 												<span class="bullet bullet-dot"></span>
 											</span>
-											<span class="menu-title">Pelayanan Publik</span>
+											<span class="menu-title">Produk Hukum</span>
 										</a>
+										<a class="menu-link @if(Request::segment(1)=='faq') active @endif" href="{{ url('faq') }}">
+											<span class="menu-bullet">
+												<span class="bullet bullet-dot"></span>
+											</span>
+											<span class="menu-title">FAQ</span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							
+							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('transparency'))) here show @endif menu-accordion">
+								<span class="menu-link">
+									<span class="menu-icon" style="margin-right: 15px">
+										<img src="{{ asset('storage/menu/icons8-loudspeaker-100.png') }}" width="30" height="30">
+									</span>
+									<span class="menu-title">Transparansi</span>
+									<span class="menu-arrow"></span>
+								</span>
+								<div class="menu-sub menu-sub-accordion menu-active-bg">
+									<div class="menu-item">
+										<a class="menu-link @if(Request::segment(2)=='lakip') active @endif" href="{{ route('transparency.index', 'lakip') }}">
+											<span class="menu-bullet">
+												<span class="bullet bullet-dot"></span>
+											</span>
+											<span class="menu-title">Lakip</span>
+										</a>
+
+										<a class="menu-link @if(Request::segment(2)=='renstra') active @endif" href="{{ route('transparency.index', 'renstra') }}">
+											<span class="menu-bullet">
+												<span class="bullet bullet-dot"></span>
+											</span>
+											<span class="menu-title">Renstra</span>
+										</a>
+
+										<a class="menu-link @if(Request::segment(2)=='zona_integritas') active @endif" href="{{ route('transparency.index', 'zona_integritas') }}">
+											<span class="menu-bullet">
+												<span class="bullet bullet-dot"></span>
+											</span>
+											<span class="menu-title">Zona Integritas</span>
+										</a>
+
 									</div>
 								</div>
 							</div>

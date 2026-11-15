@@ -16,33 +16,24 @@
                 </div>
                 <hr class="border-light">
                 <div class="stack-gap-3">
-                    <div class="p-3 rounded-4 border border-light-subtle bg-body-tertiary d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="fw-bold small text-body">Undang-Undang Nomor 20 Tahun 2023 tentang Aparatur Sipil Negara</h4>
-                            <p class="small text-secondary mt-1">Regulasi utama pengelolaan manajemen ASN nasional terbaru.</p>
+                    @forelse($legalProducts as $legalProduct)
+                        <div class="p-3 rounded-4 border border-light-subtle bg-body-tertiary d-flex justify-content-between align-items-center gap-3">
+                            <div>
+                                <h4 class="fw-bold small text-body">{{ $legalProduct->title }}</h4>
+                                @if($legalProduct->text)
+                                    <p class="small text-secondary mt-1">{{ \Illuminate\Support\Str::limit(strip_tags($legalProduct->text), 240) }}</p>
+                                @endif
+                                <span class="small text-secondary">Diunduh {{ $legalProduct->count_view ?? 0 }} kali</span>
+                            </div>
+                            @if($legalProduct->file)
+                                <a href="{{ route('legal_product.download', $legalProduct) }}" class="text-primary fw-bold small d-flex align-items-center gap-1 flex-shrink-0 bg-white px-3 py-2 rounded-3 border border-light-subtle shadow-sm">
+                                    <i class="fa-solid fa-download"></i> Unduh
+                                </a>
+                            @endif
                         </div>
-                        <button onclick="triggerDownload('UU_No_20_Tahun_2023.pdf')" class="text-primary hover-primary-dark fw-bold small d-flex align-items-center gap-1 flex-shrink-0 bg-white px-3 py-2 rounded-3 border border-light-subtle shadow-sm">
-                            <i class="fa-solid fa-download"></i> Unduh
-                        </button>
-                    </div>
-                    <div class="p-3 rounded-4 border border-light-subtle bg-body-tertiary d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="fw-bold small text-body">Peraturan Pemerintah Nomor 94 Tahun 2021 tentang Disiplin PNS</h4>
-                            <p class="small text-secondary mt-1">Pedoman penegakan kewajiban dan larangan bagi pegawai.</p>
-                        </div>
-                        <button onclick="triggerDownload('PP_No_94_Tahun_2021.pdf')" class="text-primary hover-primary-dark fw-bold small d-flex align-items-center gap-1 flex-shrink-0 bg-white px-3 py-2 rounded-3 border border-light-subtle shadow-sm">
-                            <i class="fa-solid fa-download"></i> Unduh
-                        </button>
-                    </div>
-                    <div class="p-3 rounded-4 border border-light-subtle bg-body-tertiary d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="fw-bold small text-body">Peraturan Bupati Konawe Kepulauan tentang Struktur Organisasi BKD</h4>
-                            <p class="small text-secondary mt-1">Pedoman tata kerja dan uraian tugas instansi.</p>
-                        </div>
-                        <button onclick="triggerDownload('Perbup_OTK_BKD_Konkep.pdf')" class="text-primary hover-primary-dark fw-bold small d-flex align-items-center gap-1 flex-shrink-0 bg-white px-3 py-2 rounded-3 border border-light-subtle shadow-sm">
-                            <i class="fa-solid fa-download"></i> Unduh
-                        </button>
-                    </div>
+                    @empty
+                        <div class="alert alert-info mb-0">Belum ada produk hukum yang tersedia.</div>
+                    @endforelse
                 </div>
             </div>
         </div>

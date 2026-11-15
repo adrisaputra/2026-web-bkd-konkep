@@ -95,9 +95,9 @@
             // formData.append('slug', slug);
             formData.append('_token', "{{ csrf_token() }}");
 
-            var fileInput = document.getElementById('cover');
+            var fileInput = document.getElementById('file');
             if (fileInput.files.length > 0) {
-                formData.append('cover', fileInput.files[0]);
+                formData.append('file', fileInput.files[0]);
             }
 
 
@@ -144,7 +144,7 @@
         var editor = CKEDITOR.instances['text'];
         editor.setData('');
 
-        document.getElementById("show_cover").textContent = "";
+        document.getElementById("show_file").textContent = "";
         document.getElementById("action").textContent = "Simpan";
     }
 
@@ -196,9 +196,9 @@
                 // document.getElementById("slug").value = response.data.slug;
                 
                 CKEDITOR.instances['text'].setData(response.data.text);
-                // Ubah nilai cover menjadi tag <a> dengan href yang diinginkan
-                var coverLink = '<br><a href="{{ asset("storage/upload/announcement/") }}/' + response.data.cover + '" class="btn mb-2 mr-1 btn-sm btn-info snackbar-bg-info" target="_blank">Lihat Cover Sebelumnya</a>';
-                document.getElementById("show_cover").innerHTML = coverLink;
+                // Ubah nilai file menjadi tag <a> dengan href yang diinginkan
+                var fileLink = '<br><a href="{{ asset("storage/upload/announcement/") }}/' + response.data.file + '" class="btn mb-2 mr-1 btn-sm btn-info snackbar-bg-info" target="_blank">Lihat File Sebelumnya</a>';
+                document.getElementById("show_file").innerHTML = fileLink;
             },
             error: function (xhr) {
                 // Tangani kesalahan jika pengiriman formulir gagal

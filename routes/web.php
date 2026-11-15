@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LegalProductController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\TransparencyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -44,16 +47,19 @@ foreach ([
     'layanan-mutasi',
     'layanan-disiplin',
     'info-pengumuman',
-    'info-produkhukum',
     'info-galeri',
-    'info-faq',
-    'transparansi-lakip',
-    'transparansi-renstra',
-    'transparansi-ziwbk',
     'kontak',
 ] as $page) {
     Route::view('/'.$page, 'pages.'.$page)->name('page.'.$page);
 }
+
+Route::get('/transparansi-lakip', [TransparencyController::class, 'publicIndex'])->defaults('category', 'lakip')->name('page.transparansi-lakip');
+Route::get('/transparansi-renstra', [TransparencyController::class, 'publicIndex'])->defaults('category', 'renstra')->name('page.transparansi-renstra');
+Route::get('/transparansi-ziwbk', [TransparencyController::class, 'publicIndex'])->defaults('category', 'zona_integritas')->name('page.transparansi-ziwbk');
+Route::get('/info-faq', [FaqController::class, 'public_index'])->name('page.info-faq');
+Route::get('/info-produkhukum', [LegalProductController::class, 'public_index'])->name('page.info-produkhukum');
+Route::get('/legal_product/{legalProduct}/download', [LegalProductController::class, 'download'])->name('legal_product.download');
+Route::get('/transparansi/{category}/{transparency}/download', [TransparencyController::class, 'download'])->name('transparency.download');
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -105,6 +111,34 @@ Route::middleware(['role:Administrator,Operator'])->group(function () {
     Route::get('/announcement/edit/{announcement}', [AnnouncementController::class, 'edit']);
     Route::put('/announcement/edit/{announcement}', [AnnouncementController::class, 'update']);
     Route::get('/announcement/delete/{announcement}', [AnnouncementController::class, 'delete']);
+
+    // # FAQs
+    Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+    Route::get('/faq/list', [FaqController::class, 'get_faq_index'])->name('faq.list');
+    Route::post('/faq/store', [FaqController::class, 'store']);
+    Route::post('/faq/validate/{action}', [FaqController::class, 'validate']);
+    Route::get('/faq/edit/{id}', [FaqController::class, 'edit']);
+    Route::put('/faq/edit/{faq}', [FaqController::class, 'update']);
+    Route::get('/faq/delete/{faq}', [FaqController::class, 'delete']);
+
+    // # Legal Products
+    Route::get('/legal_product', [LegalProductController::class, 'index'])->name('legal_product.index');
+    Route::get('/legal_product/list', [LegalProductController::class, 'get_legal_product_index'])->name('legal_product.list');
+    Route::post('/legal_product/upload_image', [LegalProductController::class, 'upload_image'])->name('upload_legal_product');
+    Route::post('/legal_product/store', [LegalProductController::class, 'store']);
+    Route::post('/legal_product/validate/{action}', [LegalProductController::class, 'validate']);
+    Route::get('/legal_product/edit/{id}', [LegalProductController::class, 'edit']);
+    Route::put('/legal_product/edit/{legalProduct}', [LegalProductController::class, 'update']);
+    Route::get('/legal_product/delete/{legalProduct}', [LegalProductController::class, 'delete']);
+
+    // # Transparency
+    Route::get('/transparency/{category}', [TransparencyController::class, 'index'])->name('transparency.index');
+    Route::get('/transparency/{category}/list', [TransparencyController::class, 'get_transparency_index'])->name('transparency.list');
+    Route::post('/transparency/{category}/store', [TransparencyController::class, 'store'])->name('transparency.store');
+    Route::post('/transparency/{category}/validate/{action}', [TransparencyController::class, 'validate'])->name('transparency.validate');
+    Route::get('/transparency/{category}/edit/{id}', [TransparencyController::class, 'edit'])->name('transparency.edit');
+    Route::put('/transparency/{category}/edit/{transparency}', [TransparencyController::class, 'update'])->name('transparency.update');
+    Route::get('/transparency/{category}/delete/{transparency}', [TransparencyController::class, 'delete'])->name('transparency.delete');
 
     // # Information
     Route::get('/information/', [InformationController::class, 'index'])->name('information.index');

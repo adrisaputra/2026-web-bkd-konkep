@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 use Yajra\DataTables\Facades\DataTables;
 
 class AnnouncementController extends Controller
@@ -52,7 +50,7 @@ class AnnouncementController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['cover', 'action'])->make(true);
+                ->rawColumns(['file', 'action'])->make(true);
         }
     }
 
@@ -63,20 +61,20 @@ class AnnouncementController extends Controller
             $attributes = [
                 'title' => 'Judul',
                 'text' => 'Isi',
-                'cover' => 'Cover',
+                'file' => 'File',
             ];
 
             if ($action === 'Simpan') {
                 $rules = [
                     'title' => 'required',
                     'text' => 'required',
-                    'cover' => 'required|image',
+                    'file' => 'required|mimes:pdf',
                 ];
             } else {
                 $rules = [
                     'title' => 'required',
                     'text' => 'required',
-                    'cover' => 'image',
+                    'file' => 'mimes:pdf',
                 ];
             }
 
@@ -95,30 +93,9 @@ class AnnouncementController extends Controller
             $announcement->slug = Str::slug($request->title);
             $announcement->user_id = Auth::user()->id;
 
-            if ($request->hasFile('cover')) {
-                $file = $request->file('cover');
-                $fileName = time().'.webp'; // paksa jadi webp
-
-                // Tentukan ukuran
-                $width = 1600;
-                $height = 1068;
-
-                // Baca file langsung dari upload (tanpa pindah ke temp folder)
-                $manager = new ImageManager(new Driver);
-                $cover = $manager->read($file->getRealPath())
-                    ->resize($width, $height, function ($constraint) {
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    });
-
-                // Simpan tanpa kompresi
-                $encoded = $cover->toWebp(75);
-
-                // Simpan ke storage
-                Storage::put('upload/announcement/'.$fileName, (string) $encoded);
-
-                // Simpan nama file ke database
-                $announcement->cover = $fileName;
+            if ($request->file) {
+                $announcement->file = time().'.'.$request->file->getClientOriginalExtension();
+                Storage::putFileAs('upload/announcement', $request->file('file'), $announcement->file);
             }
 
             $announcement->save();
@@ -147,42 +124,13 @@ class AnnouncementController extends Controller
             $announcement->text = $request->text;
             $announcement->slug = Str::slug($request->title);
 
-            if ($request->hasFile('cover')) {
+            if ($announcement->file && $request->file('file') != '') {
+                Storage::delete('upload/announcement/'.$announcement->file);
+            }
 
-                // simpan nama file lama
-                $oldImage = $announcement->cover;
-
-                $file = $request->file('cover');
-                $fileName = time().'.webp'; // paksa jadi webp
-
-                // Tentukan ukuran
-                $width = 1600;
-                $height = 1068;
-
-                // Baca file langsung dari upload (tanpa pindah ke temp folder)
-                $manager = new ImageManager(new Driver);
-                $cover = $manager->read($file->getRealPath())
-                    ->resize($width, $height, function ($constraint) {
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    });
-
-                // Simpan tanpa kompresi
-                $encoded = $cover->toWebp(75);
-
-                // Simpan ke storage
-                Storage::put('upload/announcement/'.$fileName, (string) $encoded);
-
-                // pastikan file benar-benar ada
-                if (Storage::exists('upload/announcement/'.$fileName)) {
-
-                    $announcement->cover = $fileName;
-
-                    // baru hapus file lama
-                    if ($oldImage) {
-                        Storage::delete('upload/announcement/'.$oldImage);
-                    }
-                }
+            if ($request->file('file')) {
+                $announcement->file = time().'.'.$request->file->getClientOriginalExtension();
+                Storage::putFileAs('upload/announcement', $request->file('file'), $announcement->file);
             }
 
             $announcement->save();
@@ -197,63 +145,16 @@ class AnnouncementController extends Controller
     public function delete(Request $request, Announcement $announcement)
     {
         if ($request->ajax()) {
-            $cover = $announcement->cover;
+            $file = $announcement->file;
             $announcement->delete();
 
-            if ($cover) {
-                Storage::delete('upload/announcement/'.$cover);
+            if ($file) {
+                Storage::delete('upload/announcement/'.$file);
             }
 
             activity()->log('Delete Data Announcement With ID = '.$announcement->id);
 
             return response()->json(['success' => true, 'message' => 'Hapus Data Berhasil']);
-        }
-    }
-
-    public function upload_image(Request $request)
-    {
-        $funcNum = $request->input('CKEditorFuncNum');
-
-        if (! $request->hasFile('upload')) {
-            return "<script>
-            window.parent.CKEDITOR.tools.callFunction($funcNum, '', 'Tidak ada file');
-        </script>";
-        }
-
-        try {
-
-            $file = $request->file('upload');
-
-            // Nama file
-            $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $fileName = $name.'_'.time().'.webp';
-
-            $manager = new ImageManager(new Driver);
-
-            // 🔥 WAJIB pakai getPathname()
-            $image = $manager->read($file->getPathname());
-
-            // Resize optional
-            // if ($image->width() > 1200) {
-            //     $image->scale(width: 1200);
-            // }
-
-            // Encode ke webp
-            $encoded = $image->toWebp(75);
-
-            // 🔥 WAJIB pakai disk public
-            Storage::disk('public')->put('upload/announcement_image/'.$fileName, $encoded);
-
-            $url = asset('storage/upload/announcement_image/'.$fileName);
-
-            return "<script>
-            window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', 'Upload berhasil');
-        </script>";
-        } catch (\Exception $e) {
-
-            return "<script>
-            window.parent.CKEDITOR.tools.callFunction($funcNum, '', 'Error: {$e->getMessage()}');
-        </script>";
         }
     }
 }

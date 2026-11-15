@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class MenuPagesTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_each_menu_page_uses_the_bootstrap_layout(): void
     {
         $paths = [
