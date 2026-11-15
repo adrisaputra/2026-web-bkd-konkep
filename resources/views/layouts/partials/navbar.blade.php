@@ -1,7 +1,19 @@
-<div class="bg-primary text-white-50 small py-2">
+<div class="text-white-50 small py-2" style="background-color:#0a3656">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-        <span><i class="fa-solid fa-location-dot text-warning me-2"></i>Langara, Kab. Konawe Kepulauan, Sulawesi Tenggara</span>
-        <span><i class="fa-solid fa-envelope text-warning me-2"></i>bkd@konkepkab.go.id</span>
+        <span><i class="fa-solid fa-location-dot text-warning me-2"></i>Langara, Kab. Konawe Kepulauan, Sulawesi Tenggara
+        <i class="fa-solid fa-envelope text-warning me-2"></i>bkd@konkepkab.go.id</span>
+        <div class="d-flex align-items-center gap-3">
+            <span class="bg-primary px-2 py-1 rounded text-warning fw-semibold text-uppercase"
+                style="letter-spacing: 1px; font-size: 10px;">
+                Portal Resmi ASN Konkep
+            </span>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="#" class="social-logo"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-logo"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-logo"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
     </div>
 </div>
 

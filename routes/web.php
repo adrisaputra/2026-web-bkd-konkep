@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LegalProductController;
@@ -56,7 +57,8 @@ Route::get('/transparansi-lakip', [WebController::class, 'accountability'])->def
 Route::get('/transparansi-renstra', [WebController::class, 'accountability'])->defaults('category', 'renstra');
 Route::get('/transparansi-ziwbk', [WebController::class, 'accountability'])->defaults('category', 'zona_integritas');
 Route::get('/transparansi/{category}/{transparency}/download', [TransparencyController::class, 'download'])->name('transparency.download');
-Route::view('/kontak', 'pages.contact')->name('page.kontak');
+Route::view('/contact', 'pages.contact')->name('page.kontak');
+Route::post('/contact', [ContactMessageController::class, 'store'])->middleware('throttle:5,1')->name('contact-messages.store');
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'authenticate']);

@@ -14,12 +14,6 @@ window.showNotification = (message) => {
     window.bootstrap.Toast.getOrCreateInstance(box).show();
 };
 
-window.handleContactSubmit = (event) => {
-    event.preventDefault();
-    window.showNotification('Pesan atau pengaduan Anda berhasil dikirim ke BKD Konawe Kepulauan.');
-    event.currentTarget.reset();
-};
-
 window.triggerSimulateService = (serviceName) => {
     window.showNotification(`Membuka layanan ${serviceName}. Silakan login dengan NIP Anda.`);
 };

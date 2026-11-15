@@ -9,6 +9,35 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        .social-logo {
+            color: rgb(255, 255, 255);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-logo:hover {
+            color: #ffc107;
+        }
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #0a3656;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: #ffc107;
+            color: #0a3656;
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-body-tertiary text-body">
     @include('layouts.partials.navbar')
