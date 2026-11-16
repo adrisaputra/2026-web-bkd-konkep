@@ -1,3 +1,6 @@
+@php
+$setting = \App\Helpers\Helpers::setting();
+@endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="icon" type="image/x-icon" href="{{ asset('storage/upload/setting/'.$setting->small_icon) }}" />
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .social-logo {

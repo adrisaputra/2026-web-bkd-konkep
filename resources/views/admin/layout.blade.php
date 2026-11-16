@@ -218,22 +218,6 @@ $setting = \App\Helpers\Helpers::setting();
 											<span class="menu-title">Slider</span>
 										</a>
 									</div>
-									<div class="menu-item">
-										<a class="menu-link @if(Request::segment(1)=='popup') active @endif" href="{{ url('popup') }}">
-											<span class="menu-bullet">
-												<span class="bullet bullet-dot"></span>
-											</span>
-											<span class="menu-title">Pop Up</span>
-										</a>
-									</div>
-									<div class="menu-item">
-										<a class="menu-link @if(Request::segment(1)=='link') active @endif" href="{{ url('link') }}">
-											<span class="menu-bullet">
-												<span class="bullet bullet-dot"></span>
-											</span>
-											<span class="menu-title">Link</span>
-										</a>
-									</div>
 								</div>
 							</div>
 
@@ -292,7 +276,7 @@ $setting = \App\Helpers\Helpers::setting();
 							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('service'))) here show @endif menu-accordion">
 								<span class="menu-link">
 									<span class="menu-icon" style="margin-right: 15px">
-										<img src="{{ asset('storage/menu/icons8-loudspeaker-100.png') }}" width="30" height="30">
+										<img src="{{ asset('storage/menu/icons8-service2-100.png') }}" width="30" height="30">
 									</span>
 									<span class="menu-title">Layanan</span>
 									<span class="menu-arrow"></span>
@@ -379,7 +363,7 @@ $setting = \App\Helpers\Helpers::setting();
 							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('transparency'))) here show @endif menu-accordion">
 								<span class="menu-link">
 									<span class="menu-icon" style="margin-right: 15px">
-										<img src="{{ asset('storage/menu/icons8-loudspeaker-100.png') }}" width="30" height="30">
+										<img src="{{ asset('storage/menu/icons8-document-100.png') }}" width="30" height="30">
 									</span>
 									<span class="menu-title">Transparansi</span>
 									<span class="menu-arrow"></span>
@@ -428,14 +412,14 @@ $setting = \App\Helpers\Helpers::setting();
 											<span class="menu-title">Foto</span>
 										</a>
 									</div>
-									<div class="menu-item">
+									{{--<div class="menu-item">
 										<a class="menu-link @if(Request::segment(1)=='video') active @endif " href="{{ url('video') }}">
 											<span class="menu-bullet">
 												<span class="bullet bullet-dot"></span>
 											</span>
 											<span class="menu-title">Video</span>
 										</a>
-									</div>
+									</div>--}}
 								</div>
 							</div>
 

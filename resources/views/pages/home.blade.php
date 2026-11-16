@@ -197,10 +197,10 @@
             <section class="container mx-auto">
                 <div class="d-flex justify-content-between align-items-end mb-5">
                     <div>
-                        <h2 class="fs-3 fw-bold text-dark">Berita & Informasi Terbaru</h2>
+                        <h2 class="fs-3 fw-bold text-dark">Berita Terbaru</h2>
                         <p class="small text-secondary mt-1">Update kegiatan dan kebijakan terbaru dari BKD Konawe Kepulauan</p>
                     </div>
-                    <a href="{{ url('page-announcement') }}" class="d-sm-flex align-items-center gap-1 text-primary fw-semibold small hover-underline">
+                    <a href="{{ url('page-news') }}" class="d-sm-flex align-items-center gap-1 text-primary fw-semibold small hover-underline">
                         Lihat Semua <i class="fa-solid fa-arrow-right text-10"></i>
                     </a>
                 </div>

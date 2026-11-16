@@ -1,7 +1,7 @@
 <div class="text-white-50 small py-2" style="background-color:#0a3656">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
         <span><i class="fa-solid fa-location-dot text-warning me-2"></i>Langara, Kab. Konawe Kepulauan, Sulawesi Tenggara
-        <i class="fa-solid fa-envelope text-warning me-2"></i>bkd@konkepkab.go.id</span>
+        <i class="fa-solid fa-envelope text-warning me-2"></i>{{ $setting->email }}</span>
         <div class="d-flex align-items-center gap-3">
             <span class="bg-primary px-2 py-1 rounded text-warning fw-semibold text-uppercase"
                 style="letter-spacing: 1px; font-size: 10px;">
@@ -9,9 +9,9 @@
             </span>
 
             <div class="d-flex align-items-center gap-3">
-                <a href="#" class="social-logo"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="social-logo"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="social-logo"><i class="fa-brands fa-youtube"></i></a>
+                <a href="{{ $setting->facebook }}" target="_blank" class="social-logo"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="{{ $setting->instagram }}" target="_blank" class="social-logo"><i class="fa-brands fa-instagram"></i></a>
+                <a href="{{ $setting->youtube }}" target="_blank" class="social-logo"><i class="fa-brands fa-youtube"></i></a>
             </div>
         </div>
     </div>
@@ -62,6 +62,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('page.info-*') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Publikasi</a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ url('page-news') }}">Berita</a></li>
                         <li><a class="dropdown-item" href="{{ url('page-announcement') }}">Pengumuman Resmi</a></li>
                         <li><a class="dropdown-item" href="{{ url('page-legal-product') }}">Produk Hukum &amp; Peraturan</a></li>
                         <li><a class="dropdown-item" href="{{ url('page-galery') }}">Galeri Kegiatan</a></li>

@@ -11,7 +11,7 @@
                     </div>
                     <div>
                         <span class="text-primary fw-bold small text-uppercase tracking-wider">Publikasi Resmi</span>
-                        <h1 class="fs-3 fs-2 fw-bolder text-dark">Pengumuman & Berita Kepegawaian</h1>
+                        <h1 class="fs-3 fs-2 fw-bolder text-dark">Pengumuman</h1>
                     </div>
                 </div>
                 <hr class="border-light">

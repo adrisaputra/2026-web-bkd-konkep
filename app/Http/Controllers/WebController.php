@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Announcement;
 use App\Models\Faq;
 use App\Models\LegalProduct;
@@ -70,6 +71,46 @@ class WebController extends Controller
         return view('pages.service', compact('head', 'title', 'service', 'serviceUrl'));
     }
 
+    public function news(Request $request): View
+    {
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:100'],
+        ]);
+        $search = trim($validated['search'] ?? '');
+
+        $newsQuery = News::query()
+            ->latest()
+            ->orderByDesc('id');
+
+        if ($search !== '') {
+            $newsQuery->where(function ($query) use ($search): void {
+                $query->where('title', 'like', '%'.$search.'%')
+                    ->orWhere('text', 'like', '%'.$search.'%');
+            });
+        }
+
+        $news = $newsQuery
+            ->paginate(5)
+            ->withQueryString();
+
+        return view('pages.news', compact('news', 'search'));
+    }
+
+    public function news_detail(Request $request): View
+    {
+        $validated = $request->validate([
+            'q' => ['required', 'string', 'max:255'],
+        ]);
+        $news = News::query()
+            ->where('slug', $validated['q'])
+            ->firstOrFail();
+
+        $newsHtml = preg_replace('/<\/(?:p|div|li|h[1-6])\s*>|<br\s*\/?>/i', "\n", $news->text ?? '');
+        $newsContent = trim(strip_tags($newsHtml ?? ''));
+
+        return view('pages.news_detail', compact('news', 'newsContent'));
+    }
+
     public function announcement(Request $request): View
     {
         $validated = $request->validate([
@@ -134,6 +175,15 @@ class WebController extends Controller
         $faqs = Faq::query()->orderBy('id')->get();
 
         return view('pages.faq', compact('faqs'));
+    }
+
+    public function galery(): View
+    {
+        $albums = Album::query()
+            ->latest()
+            ->paginate(5);
+
+        return view('pages.galery', compact('albums'));
     }
 
     public function accountability(string $category): View
