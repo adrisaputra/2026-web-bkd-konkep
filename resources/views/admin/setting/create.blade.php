@@ -6,6 +6,49 @@
     <div class="card-body border-top p-9">
         <!--end::Input group-->
         <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Nama Kepala Badan</label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" name="data1" id="data1" class="form-control" placeholder="" value="{{ $setting->data1 }}"/>
+                <div id="data1-error" class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">NIP Kepala Badan</label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" name="data2" id="data2" class="form-control" placeholder="" value="{{ $setting->data2 }}"/>
+                <div id="data2-error" class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Total ASN Aktif</label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" name="data3" id="data3" class="form-control" placeholder="" value="{{ $setting->data3 }}"/>
+                <div id="data3-error" class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Total Pegawai PNS</label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" name="data4" id="data4" class="form-control" placeholder="" value="{{ $setting->data4 }}"/>
+                <div id="data4-error" class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Total Pegawai PPPK</label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" name="data5" id="data5" class="form-control" placeholder="" value="{{ $setting->data5 }}"/>
+                <div id="data5-error" class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Jumlah OPD / Dinas Terkait</label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" name="data6" id="data6" class="form-control" placeholder="" value="{{ $setting->data6 }}"/>
+                <div id="data6-error" class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="row mb-6">
             <label class="col-lg-4 col-form-label fw-bold fs-6">Alamat</label>
             <div class="col-lg-8 fv-row">
                 <input type="text" name="address" id="address" class="form-control" placeholder="Alamat" value="{{ $setting->address }}"/>

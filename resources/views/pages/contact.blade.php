@@ -3,7 +3,7 @@
 @section('title', 'Kontak')
 
 @section('content')
-<div class="container mx-auto stack-gap-5 g-5 ">
+<div class="container mx-auto px-3 py-5 stack-gap-5">
     <div class="text-center content-reading mx-auto">
         <span class="bg-primary-subtle text-primary fw-bold px-3 py-1 rounded-pill small text-uppercase tracking-wider">Hubungi Kami</span>
         <h1 class="fs-2 fw-bolder text-dark mt-2">Pusat Layanan & Pengaduan BKD</h1>
@@ -122,15 +122,7 @@
     <!-- Google Map Placeholder Card -->
     <div class="bg-white rounded-4 shadow border border-light p-3">
         <div class="w-100 hero-image-height rounded-4 bg-primary-subtle position-relative d-flex align-items-center justify-content-center text-center border border-light-subtle">
-            <div class="position-absolute top-0 start-0 bottom-0 end-0 bg-cover bg-center opacity-75" style="background-image: url('https://placehold.co/1200x400/074770/ffffff?text=Peta+Lokasi+Kantor+BKD+Kabupaten+Konawe+Kepulauan+di+Langara');"></div>
-            <div class="position-relative z-1 bg-white bg-opacity-75 p-4 rounded-4 shadow content-form mx-3">
-                <i class="fa-solid fa-map-location-dot fs-1 text-primary mb-2"></i>
-                <h4 class="fw-bold small text-dark">Lokasi Kantor BKD Konawe Kepulauan</h4>
-                <p class="small text-secondary mt-1">Langara, Kecamatan Wawonii Barat, Kabupaten Konawe Kepulauan, Sulawesi Tenggara.</p>
-                <a href="https://maps.google.com" target="_blank" class="mt-3 d-inline-block bg-primary text-white fw-bold small px-3 py-2 rounded-3 shadow hover-primary-dark">
-                    Buka di Google Maps <i class="fa-solid fa-arrow-up-right-from-square ms-1 text-10"></i>
-                </a>
-            </div>
+            <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=bkd konawe kepulauan&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://minecraftlegame.net/">Minecraftle Game</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:400px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:400px;}.gmap_iframe {height:400px!important;}</style></div>
         </div>
     </div>
 </div>

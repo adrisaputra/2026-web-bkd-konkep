@@ -1,3 +1,6 @@
+@php
+$setting = \App\Helpers\Helpers::setting();
+@endphp
 @extends('layouts.app')
 
 @section('title', 'Beranda')
@@ -84,9 +87,9 @@
                         <div class="size-48 rounded-4 bg-primary-subtle border mb-3 border-4 shadow position-relative overflow-hidden">
                             <img src="{{ asset('storage/upload/profile/' . $profile->image) }}" alt="Kepala BKD Konkep" class="w-100 h-100 object-fit-cover">
                         </div>
-                        <h3 class="fw-bold fs-5 text-primary-emphasis">Drs. H. M. Taslim, M.Si</h3>
+                        <h3 class="fw-bold fs-5 text-primary-emphasis">{{ $setting->data1 }}</h3>
                         <p class="small text-primary fw-medium">Kepala Badan Kepegawaian Daerah</p>
-                        <span class="mt-2 text-10 text-secondary bg-white px-3 py-1 rounded-pill border border-light-subtle">NIP. 19721231 199503 1 001</span>
+                        <span class="mt-2 text-10 text-secondary bg-white px-3 py-1 rounded-pill border border-light-subtle">NIP. {{ $setting->data2 }}</span>
                     </div>
                     <div class="col-lg-8 p-4 p-5 stack-gap-4">
                         <div class="d-flex align-items-center gap-2 text-primary fw-bold small text-uppercase tracking-wider">
@@ -163,28 +166,28 @@
                             <div class="col-lg-3" >
                                 <div class="bg-white bg-opacity-10 p-4 rounded-4 border border-white border-opacity-10">
                                     <i class="fa-solid fa-users fs-2 text-warning mb-3"></i>
-                                    <h3 class="fs-2 fw-bolder">2.450</h3>
+                                    <h3 class="fs-2 fw-bolder">{{ $setting->data3 }}</h3>
                                     <p class="small text-light mt-1">Total ASN Aktif</p>
                                 </div>
                             </div>
                             <div class="col-lg-3" >
                                 <div class="bg-white bg-opacity-10 p-4 rounded-4 border border-white border-opacity-10">
                                     <i class="fa-solid fa-user-tie fs-2 text-warning mb-3"></i>
-                                    <h3 class="fs-2 fw-bolder">1.980</h3>
+                                    <h3 class="fs-2 fw-bolder">{{ $setting->data4 }}</h3>
                                     <p class="small text-light mt-1">Pegawai PNS</p>
                                 </div>
                             </div>
                             <div class="col-lg-3" >
                                 <div class="bg-white bg-opacity-10 p-4 rounded-4 border border-white border-opacity-10">
                                     <i class="fa-solid fa-id-badge fs-2 text-warning mb-3"></i>
-                                    <h3 class="fs-2 fw-bolder">470</h3>
+                                    <h3 class="fs-2 fw-bolder">{{ $setting->data5 }}</h3>
                                     <p class="small text-light mt-1">Pegawai PPPK</p>
                                 </div>
                             </div>
                             <div class="col-lg-3" >
                                 <div class="bg-white bg-opacity-10 p-4 rounded-4 border border-white border-opacity-10">
                                     <i class="fa-solid fa-building-columns fs-2 text-warning mb-3"></i>
-                                    <h3 class="fs-2 fw-bolder">24</h3>
+                                    <h3 class="fs-2 fw-bolder">{{ $setting->data6 }}</h3>
                                     <p class="small text-light mt-1">OPD / Dinas Terkait</p>
                                 </div>
                             </div>

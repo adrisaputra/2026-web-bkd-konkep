@@ -56,11 +56,6 @@ class LoginController extends Controller
             return back()->with('status2', 'User Tidak Terdaftar!');
         }
 
-        // Jika bukan group 1, wajib sesuai village
-        if ($user->group_id != 1 && $user->village_id != $this->village->id) {
-            return back()->with('status2', 'User Tidak Terdaftar!');
-        }
-
         if ($user->status != 'Active') {
             return back()->with('status2', 'User Tidak Aktif, Silahkan Hubungi Admin!');
         }

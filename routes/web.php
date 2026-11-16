@@ -121,6 +121,12 @@ Route::middleware(['role:Administrator,Operator'])->group(function () {
     Route::put('/faq/edit/{faq}', [FaqController::class, 'update']);
     Route::get('/faq/delete/{faq}', [FaqController::class, 'delete']);
 
+    // # Contact Messages
+    Route::get('/contact-message', [ContactMessageController::class, 'index'])->name('contact-messages.index');
+    Route::get('/contact-message/list', [ContactMessageController::class, 'get_contact_message_index'])->name('contact-messages.list');
+    Route::get('/contact-message/show/{contactMessage}', [ContactMessageController::class, 'show'])->name('contact-messages.show');
+    Route::delete('/contact-message/delete/{contactMessage}', [ContactMessageController::class, 'delete'])->name('contact-messages.delete');
+
     // # Legal Products
     Route::get('/legal_product', [LegalProductController::class, 'index'])->name('legal_product.index');
     Route::get('/legal_product/list', [LegalProductController::class, 'get_legal_product_index'])->name('legal_product.list');
@@ -139,16 +145,6 @@ Route::middleware(['role:Administrator,Operator'])->group(function () {
     Route::get('/transparency/{category}/edit/{id}', [TransparencyController::class, 'edit'])->name('transparency.edit');
     Route::put('/transparency/{category}/edit/{transparency}', [TransparencyController::class, 'update'])->name('transparency.update');
     Route::get('/transparency/{category}/delete/{transparency}', [TransparencyController::class, 'delete'])->name('transparency.delete');
-
-    // # Information
-    Route::get('/information/', [InformationController::class, 'index'])->name('information.index');
-    Route::get('/information/list/', [InformationController::class, 'get_information_index'])->name('information.list');
-    Route::post('/information/upload_image', [InformationController::class, 'upload_image'])->name('upload_information');
-    Route::post('/information/store', [InformationController::class, 'store']);
-    Route::post('/information/validate/{action}', [InformationController::class, 'validate']);
-    Route::get('/information/edit/{information}', [InformationController::class, 'edit']);
-    Route::put('/information/edit/{information}', [InformationController::class, 'update']);
-    Route::get('/information/delete/{information}', [InformationController::class, 'delete']);
 
     // # Album
     Route::get('/album', [AlbumController::class, 'index'])->name('album.index');

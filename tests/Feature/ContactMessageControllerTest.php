@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\RoleMiddleware;
+use App\Models\ContactMessage;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -93,5 +96,70 @@ class ContactMessageControllerTest extends TestCase
             ->assertSee('name="contact"', false)
             ->assertSee('name="category"', false)
             ->assertSee('name="message"', false);
+    }
+
+    public function test_guest_is_redirected_from_the_admin_page(): void
+    {
+        $this->get('/contact-message')
+            ->assertRedirect('/');
+    }
+
+    public function test_admin_page_lists_contact_messages_for_datatables(): void
+    {
+        $contactMessage = ContactMessage::create([
+            'name' => 'Budi Santoso',
+            'identifier' => '1987654321',
+            'contact' => 'budi@example.com',
+            'category' => 'complaint',
+            'message' => 'Mohon bantuan.',
+        ]);
+
+        $this->withoutMiddleware(RoleMiddleware::class)
+            ->actingAs(User::factory()->create())
+            ->getJson('/contact-message/list', ['X-Requested-With' => 'XMLHttpRequest'])
+            ->assertOk()
+            ->assertJsonPath('data.0.id', $contactMessage->id)
+            ->assertJsonPath('data.0.name', 'Budi Santoso')
+            ->assertJsonPath('data.0.category_label', 'Pengaduan / Lainnya');
+    }
+
+    public function test_admin_can_view_a_contact_message(): void
+    {
+        $contactMessage = ContactMessage::create([
+            'name' => 'Budi Santoso',
+            'identifier' => '1987654321',
+            'contact' => 'budi@example.com',
+            'category' => 'complaint',
+            'message' => 'Mohon bantuan.',
+        ]);
+
+        $this->withoutMiddleware(RoleMiddleware::class)
+            ->actingAs(User::factory()->create())
+            ->getJson('/contact-message/show/'.$contactMessage->id, ['X-Requested-With' => 'XMLHttpRequest'])
+            ->assertOk()
+            ->assertJsonPath('data.id', $contactMessage->id)
+            ->assertJsonPath('data.identifier', '1987654321')
+            ->assertJsonPath('data.message', 'Mohon bantuan.');
+    }
+
+    public function test_admin_can_delete_a_contact_message(): void
+    {
+        $contactMessage = ContactMessage::create([
+            'name' => 'Budi Santoso',
+            'contact' => 'budi@example.com',
+            'category' => 'complaint',
+            'message' => 'Mohon bantuan.',
+        ]);
+
+        $this->withoutMiddleware(RoleMiddleware::class)
+            ->actingAs(User::factory()->create())
+            ->deleteJson('/contact-message/delete/'.$contactMessage->id, [], ['X-Requested-With' => 'XMLHttpRequest'])
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'message' => 'Hapus Pesan Berhasil',
+            ]);
+
+        $this->assertDatabaseMissing('contact_messages', ['id' => $contactMessage->id]);
     }
 }

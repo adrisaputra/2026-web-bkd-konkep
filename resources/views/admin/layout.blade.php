@@ -321,7 +321,7 @@ $setting = \App\Helpers\Helpers::setting();
 								</div>
 							</div>
 
-							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('news','announcement','information','legal_product','faq'))) here show @endif menu-accordion">
+							<div data-kt-menu-trigger="click" class="menu-item @if(in_array(Request::segment(1), array('news','announcement','information','legal_product','faq','contact-message'))) here show @endif menu-accordion">
 								<span class="menu-link">
 									<span class="menu-icon" style="margin-right: 15px">
 										<img src="{{ asset('storage/menu/icons8-loudspeaker-100.png') }}" width="30" height="30">
@@ -354,6 +354,12 @@ $setting = \App\Helpers\Helpers::setting();
 												<span class="bullet bullet-dot"></span>
 											</span>
 											<span class="menu-title">FAQ</span>
+										</a>
+										<a class="menu-link @if(Request::segment(1)=='contact-message') active @endif" href="{{ route('contact-messages.index') }}">
+											<span class="menu-bullet">
+												<span class="bullet bullet-dot"></span>
+											</span>
+											<span class="menu-title">Pesan Kontak</span>
 										</a>
 									</div>
 								</div>

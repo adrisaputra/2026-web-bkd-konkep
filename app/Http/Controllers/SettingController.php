@@ -49,6 +49,12 @@ class SettingController extends Controller
             $setting->facebook = $request->facebook;
             $setting->twitter = $request->twitter;
             $setting->whatsapp = $request->whatsapp;
+            $setting->data1 = $request->data1;
+            $setting->data2 = $request->data2;
+            $setting->data3 = $request->data3;
+            $setting->data4 = $request->data4;
+            $setting->data5 = $request->data5;
+            $setting->data6 = $request->data6;
 
             if ($request->file('small_icon')) {
                 $oldSmallIcon = $setting->small_icon;

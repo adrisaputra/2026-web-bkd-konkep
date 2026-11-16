@@ -38,8 +38,7 @@ class UserController extends Controller
                     if ($v->group_id == 1) {
                         $group = '<span class="badge badge-primary">Administrator</span>';
                     } elseif ($v->group_id == 2) {
-                        $group = '<span class="badge badge-warning">Admin Kelurahan/Desa </span>';
-                        $group .= '<p>'.$v->village->name.'</p>';
+                        $group = '<span class="badge badge-warning">Operator</span>';
                     }
 
                     return $group;
